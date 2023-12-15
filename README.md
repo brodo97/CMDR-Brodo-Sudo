@@ -1,6 +1,3 @@
-
-
-
 # Atlas 🌌
 Atlas is a hobby project that I created to learn the automation of RESTful API using the [SpaceTraders](https://spacetraders.io/) game/codebase which is
 
