@@ -160,6 +160,15 @@ def write_function_docstring(description: str, params: dict) -> None:
 
 
 def write_function_body(name: str, url: str, action: str, params: dict) -> None:
+    """ Writes the body of a function to the SpaceTradersAPI.py file
+
+    Args:
+        name (str): The name of the function
+        url (str): The url of the endpoint
+        action (str): The action of the function: get, post, patch
+        params (dict): The parameters of the function
+    """
+
     # Add the parameters to the function body
     function_arguments = ["self"]
     for param in sorted(params, key=lambda x: x["has_default"]):
@@ -214,6 +223,15 @@ def write_function_body(name: str, url: str, action: str, params: dict) -> None:
     write_line(f"        return response.json()")
 
 def parse_schema(schema: dict) -> str:
+    """ Parses a schema and returns the python type
+
+    Args:
+        schema (dict): The schema to parse
+
+    Returns:
+        str: The python type equivalent
+    """
+
     if "type" in schema:
         if schema["type"] == "string":
             return "str"
@@ -231,6 +249,15 @@ def parse_schema(schema: dict) -> str:
         return "str"
 
 def parse_parameters(parameters: list) -> list:
+    """ Parses the parameters and returns a list of dicts containing the parameters
+
+    Args:
+        parameters (list): The parameters to parse
+
+    Returns:
+        list: The parameters as a list of dicts
+    """
+
     params = list()
     # Loop over the parameters
     for parameter in parameters:
@@ -258,6 +285,12 @@ def parse_parameters(parameters: list) -> list:
     return params
 
 def loop_over_endpoints(data: dict) -> None:
+    """ Loops over the endpoints and generates the functions
+
+    Args:
+        data (dict): The data from the json file
+    """
+
     for endpoint, endpoint_data in sorted(data["paths"].items(), key=lambda x: x[0]):
         parameters = endpoint_data.pop("parameters", [])
         for action, action_data in sorted(endpoint_data.items(), key=lambda x: x[0]):
@@ -294,6 +327,8 @@ def loop_over_endpoints(data: dict) -> None:
 
 if __name__ == "__main__":
     json_data = read_json("tools/source.json")
+
     write_header(data=json_data)
     loop_over_endpoints(data=json_data)
+
     space_traders_api_file.close()
