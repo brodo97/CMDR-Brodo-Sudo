@@ -19,7 +19,7 @@ def login() -> None:
 
     clear()
 
-    print("Login successful, welcome back {YOUR_NAME}!")
+    print(f"Login successful, welcome back {YOUR_NAME}!")
     print("Here is your agent data:")
 
     for key, value in result.items():
