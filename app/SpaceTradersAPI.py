@@ -33,6 +33,7 @@ class SpaceTraders:
             dict: The response from the server
         '''
 
+
         # Prepare the url
         url = self.url + f'/'
 
@@ -55,24 +56,24 @@ class SpaceTraders:
         Fetch agents details.
 
         Args:
-            page (int): What entry offset to request. Default: 1
-            limit (int): How many entries to return per page. Default: 10
+            page (int): What entry offset to request. Default: 1. Must be greater than 1.
+            limit (int): How many entries to return per page. Default: 10. Must be between 1 and 20.
 
         Returns:
             dict: The response from the server
         '''
 
+        assert 1 <= page, f'page must be greater than 1.'
+        assert 1 <= limit <= 20, f'limit must be between 1 and 20.'
+
         # Prepare the url
         url = self.url + f'/agents'
 
         # Prepare the parameters
-        params = dict()
-
-        # Add the parameters to the parameters dict
-        if page is not None:
-            params['page'] = page
-        if limit is not None:
-            params['limit'] = limit
+        params = {
+            'page': page,
+            'limit': limit,
+        }
 
         # Make the request
         response = self._get(url=url, params=params)
@@ -98,6 +99,7 @@ class SpaceTraders:
             dict: The response from the server
         '''
 
+
         # Prepare the url
         url = self.url + f'/agents/{agentSymbol}'
 
@@ -120,24 +122,24 @@ class SpaceTraders:
         Return a paginated list of all the factions in the game.
 
         Args:
-            page (int): What entry offset to request. Default: 1
-            limit (int): How many entries to return per page. Default: 10
+            page (int): What entry offset to request. Default: 1. Must be greater than 1.
+            limit (int): How many entries to return per page. Default: 10. Must be between 1 and 20.
 
         Returns:
             dict: The response from the server
         '''
 
+        assert 1 <= page, f'page must be greater than 1.'
+        assert 1 <= limit <= 20, f'limit must be between 1 and 20.'
+
         # Prepare the url
         url = self.url + f'/factions'
 
         # Prepare the parameters
-        params = dict()
-
-        # Add the parameters to the parameters dict
-        if page is not None:
-            params['page'] = page
-        if limit is not None:
-            params['limit'] = limit
+        params = {
+            'page': page,
+            'limit': limit,
+        }
 
         # Make the request
         response = self._get(url=url, params=params)
@@ -163,6 +165,7 @@ class SpaceTraders:
             dict: The response from the server
         '''
 
+
         # Prepare the url
         url = self.url + f'/factions/{factionSymbol}'
 
@@ -186,6 +189,7 @@ class SpaceTraders:
             dict: The response from the server
         '''
 
+
         # Prepare the url
         url = self.url + f'/my/agent'
 
@@ -208,24 +212,24 @@ class SpaceTraders:
         Return a paginated list of all your contracts.
 
         Args:
-            page (int): What entry offset to request. Default: 1
-            limit (int): How many entries to return per page. Default: 10
+            page (int): What entry offset to request. Default: 1. Must be greater than 1.
+            limit (int): How many entries to return per page. Default: 10. Must be between 1 and 20.
 
         Returns:
             dict: The response from the server
         '''
 
+        assert 1 <= page, f'page must be greater than 1.'
+        assert 1 <= limit <= 20, f'limit must be between 1 and 20.'
+
         # Prepare the url
         url = self.url + f'/my/contracts'
 
         # Prepare the parameters
-        params = dict()
-
-        # Add the parameters to the parameters dict
-        if page is not None:
-            params['page'] = page
-        if limit is not None:
-            params['limit'] = limit
+        params = {
+            'page': page,
+            'limit': limit,
+        }
 
         # Make the request
         response = self._get(url=url, params=params)
@@ -250,6 +254,7 @@ class SpaceTraders:
         Returns:
             dict: The response from the server
         '''
+
 
         # Prepare the url
         url = self.url + f'/my/contracts/{contractId}'
@@ -279,6 +284,7 @@ class SpaceTraders:
         Returns:
             dict: The response from the server
         '''
+
 
         # Prepare the url
         url = self.url + f'/my/contracts/{contractId}/accept'
@@ -311,6 +317,7 @@ class SpaceTraders:
             dict: The response from the server
         '''
 
+
         # Prepare the url
         url = self.url + f'/my/contracts/{contractId}/deliver'
 
@@ -338,6 +345,7 @@ class SpaceTraders:
             dict: The response from the server
         '''
 
+
         # Prepare the url
         url = self.url + f'/my/contracts/{contractId}/fulfill'
 
@@ -360,24 +368,24 @@ class SpaceTraders:
         Return a paginated list of all of ships under your agent's ownership.
 
         Args:
-            page (int): What entry offset to request. Default: 1
-            limit (int): How many entries to return per page. Default: 10
+            page (int): What entry offset to request. Default: 1. Must be greater than 1.
+            limit (int): How many entries to return per page. Default: 10. Must be between 1 and 20.
 
         Returns:
             dict: The response from the server
         '''
 
+        assert 1 <= page, f'page must be greater than 1.'
+        assert 1 <= limit <= 20, f'limit must be between 1 and 20.'
+
         # Prepare the url
         url = self.url + f'/my/ships'
 
         # Prepare the parameters
-        params = dict()
-
-        # Add the parameters to the parameters dict
-        if page is not None:
-            params['page'] = page
-        if limit is not None:
-            params['limit'] = limit
+        params = {
+            'page': page,
+            'limit': limit,
+        }
 
         # Make the request
         response = self._get(url=url, params=params)
@@ -400,6 +408,7 @@ class SpaceTraders:
         Returns:
             dict: The response from the server
         '''
+
 
         # Prepare the url
         url = self.url + f'/my/ships'
@@ -428,6 +437,7 @@ class SpaceTraders:
             dict: The response from the server
         '''
 
+
         # Prepare the url
         url = self.url + f'/my/ships/{shipSymbol}'
 
@@ -454,6 +464,7 @@ class SpaceTraders:
         Returns:
             dict: The response from the server
         '''
+
 
         # Prepare the url
         url = self.url + f'/my/ships/{shipSymbol}/cargo'
@@ -486,6 +497,7 @@ class SpaceTraders:
             dict: The response from the server
         '''
 
+
         # Prepare the url
         url = self.url + f'/my/ships/{shipSymbol}/chart'
 
@@ -516,6 +528,7 @@ class SpaceTraders:
         Returns:
             dict: The response from the server
         '''
+
 
         # Prepare the url
         url = self.url + f'/my/ships/{shipSymbol}/cooldown'
@@ -548,6 +561,7 @@ class SpaceTraders:
             dict: The response from the server
         '''
 
+
         # Prepare the url
         url = self.url + f'/my/ships/{shipSymbol}/dock'
 
@@ -579,6 +593,7 @@ class SpaceTraders:
             dict: The response from the server
         '''
 
+
         # Prepare the url
         url = self.url + f'/my/ships/{shipSymbol}/extract'
 
@@ -608,6 +623,7 @@ class SpaceTraders:
             dict: The response from the server
         '''
 
+
         # Prepare the url
         url = self.url + f'/my/ships/{shipSymbol}/extract/survey'
 
@@ -634,6 +650,7 @@ class SpaceTraders:
         Returns:
             dict: The response from the server
         '''
+
 
         # Prepare the url
         url = self.url + f'/my/ships/{shipSymbol}/jettison'
@@ -664,6 +681,7 @@ class SpaceTraders:
             dict: The response from the server
         '''
 
+
         # Prepare the url
         url = self.url + f'/my/ships/{shipSymbol}/jump'
 
@@ -690,6 +708,7 @@ class SpaceTraders:
         Returns:
             dict: The response from the server
         '''
+
 
         # Prepare the url
         url = self.url + f'/my/ships/{shipSymbol}/mounts'
@@ -722,6 +741,7 @@ class SpaceTraders:
             dict: The response from the server
         '''
 
+
         # Prepare the url
         url = self.url + f'/my/ships/{shipSymbol}/mounts/install'
 
@@ -753,6 +773,7 @@ class SpaceTraders:
             dict: The response from the server
         '''
 
+
         # Prepare the url
         url = self.url + f'/my/ships/{shipSymbol}/mounts/remove'
 
@@ -779,6 +800,7 @@ class SpaceTraders:
         Returns:
             dict: The response from the server
         '''
+
 
         # Prepare the url
         url = self.url + f'/my/ships/{shipSymbol}/nav'
@@ -808,6 +830,7 @@ class SpaceTraders:
         Returns:
             dict: The response from the server
         '''
+
 
         # Prepare the url
         url = self.url + f'/my/ships/{shipSymbol}/nav'
@@ -839,6 +862,7 @@ class SpaceTraders:
         Returns:
             dict: The response from the server
         '''
+
 
         # Prepare the url
         url = self.url + f'/my/ships/{shipSymbol}/navigate'
@@ -873,6 +897,7 @@ class SpaceTraders:
             dict: The response from the server
         '''
 
+
         # Prepare the url
         url = self.url + f'/my/ships/{shipSymbol}/negotiate/contract'
 
@@ -903,6 +928,7 @@ class SpaceTraders:
         Returns:
             dict: The response from the server
         '''
+
 
         # Prepare the url
         url = self.url + f'/my/ships/{shipSymbol}/orbit'
@@ -937,6 +963,7 @@ class SpaceTraders:
             dict: The response from the server
         '''
 
+
         # Prepare the url
         url = self.url + f'/my/ships/{shipSymbol}/purchase'
 
@@ -965,6 +992,7 @@ class SpaceTraders:
         Returns:
             dict: The response from the server
         '''
+
 
         # Prepare the url
         url = self.url + f'/my/ships/{shipSymbol}/refine'
@@ -999,6 +1027,7 @@ class SpaceTraders:
             dict: The response from the server
         '''
 
+
         # Prepare the url
         url = self.url + f'/my/ships/{shipSymbol}/refuel'
 
@@ -1030,6 +1059,7 @@ class SpaceTraders:
             dict: The response from the server
         '''
 
+
         # Prepare the url
         url = self.url + f'/my/ships/{shipSymbol}/scan/ships'
 
@@ -1058,6 +1088,7 @@ class SpaceTraders:
         Returns:
             dict: The response from the server
         '''
+
 
         # Prepare the url
         url = self.url + f'/my/ships/{shipSymbol}/scan/systems'
@@ -1090,6 +1121,7 @@ class SpaceTraders:
             dict: The response from the server
         '''
 
+
         # Prepare the url
         url = self.url + f'/my/ships/{shipSymbol}/scan/waypoints'
 
@@ -1116,6 +1148,7 @@ class SpaceTraders:
         Returns:
             dict: The response from the server
         '''
+
 
         # Prepare the url
         url = self.url + f'/my/ships/{shipSymbol}/sell'
@@ -1145,6 +1178,7 @@ class SpaceTraders:
         Returns:
             dict: The response from the server
         '''
+
 
         # Prepare the url
         url = self.url + f'/my/ships/{shipSymbol}/siphon'
@@ -1181,6 +1215,7 @@ class SpaceTraders:
             dict: The response from the server
         '''
 
+
         # Prepare the url
         url = self.url + f'/my/ships/{shipSymbol}/survey'
 
@@ -1212,6 +1247,7 @@ class SpaceTraders:
             dict: The response from the server
         '''
 
+
         # Prepare the url
         url = self.url + f'/my/ships/{shipSymbol}/transfer'
 
@@ -1240,6 +1276,7 @@ class SpaceTraders:
         Returns:
             dict: The response from the server
         '''
+
 
         # Prepare the url
         url = self.url + f'/my/ships/{shipSymbol}/warp'
@@ -1273,6 +1310,7 @@ class SpaceTraders:
             dict: The response from the server
         '''
 
+
         # Prepare the url
         url = self.url + f'/register'
 
@@ -1295,24 +1333,24 @@ class SpaceTraders:
         Return a paginated list of all systems.
 
         Args:
-            page (int): What entry offset to request. Default: 1
-            limit (int): How many entries to return per page. Default: 10
+            page (int): What entry offset to request. Default: 1. Must be greater than 1.
+            limit (int): How many entries to return per page. Default: 10. Must be between 1 and 20.
 
         Returns:
             dict: The response from the server
         '''
 
+        assert 1 <= page, f'page must be greater than 1.'
+        assert 1 <= limit <= 20, f'limit must be between 1 and 20.'
+
         # Prepare the url
         url = self.url + f'/systems'
 
         # Prepare the parameters
-        params = dict()
-
-        # Add the parameters to the parameters dict
-        if page is not None:
-            params['page'] = page
-        if limit is not None:
-            params['limit'] = limit
+        params = {
+            'page': page,
+            'limit': limit,
+        }
 
         # Make the request
         response = self._get(url=url, params=params)
@@ -1337,6 +1375,7 @@ class SpaceTraders:
         Returns:
             dict: The response from the server
         '''
+
 
         # Prepare the url
         url = self.url + f'/systems/{systemSymbol}'
@@ -1368,28 +1407,26 @@ class SpaceTraders:
             systemSymbol (str): The system symbol
             type (str): Filter waypoints by type.
             traits (str): Filter waypoints by one or more traits.
-            page (int): What entry offset to request. Default: 1
-            limit (int): How many entries to return per page. Default: 10
+            page (int): What entry offset to request. Default: 1. Must be greater than 1.
+            limit (int): How many entries to return per page. Default: 10. Must be between 1 and 20.
 
         Returns:
             dict: The response from the server
         '''
 
+        assert 1 <= page, f'page must be greater than 1.'
+        assert 1 <= limit <= 20, f'limit must be between 1 and 20.'
+
         # Prepare the url
         url = self.url + f'/systems/{systemSymbol}/waypoints'
 
         # Prepare the parameters
-        params = dict()
-
-        # Add the parameters to the parameters dict
-        if type is not None:
-            params['type'] = type
-        if traits is not None:
-            params['traits'] = traits
-        if page is not None:
-            params['page'] = page
-        if limit is not None:
-            params['limit'] = limit
+        params = {
+            'type': type,
+            'traits': traits,
+            'page': page,
+            'limit': limit,
+        }
 
         # Make the request
         response = self._get(url=url, params=params)
@@ -1419,6 +1456,7 @@ class SpaceTraders:
             dict: The response from the server
         '''
 
+
         # Prepare the url
         url = self.url + f'/systems/{systemSymbol}/waypoints/{waypointSymbol}'
 
@@ -1447,6 +1485,7 @@ class SpaceTraders:
         Returns:
             dict: The response from the server
         '''
+
 
         # Prepare the url
         url = self.url + f'/systems/{systemSymbol}/waypoints/{waypointSymbol}/construction'
@@ -1479,6 +1518,7 @@ class SpaceTraders:
             dict: The response from the server
         '''
 
+
         # Prepare the url
         url = self.url + f'/systems/{systemSymbol}/waypoints/{waypointSymbol}/construction/supply'
 
@@ -1509,6 +1549,7 @@ class SpaceTraders:
         Returns:
             dict: The response from the server
         '''
+
 
         # Prepare the url
         url = self.url + f'/systems/{systemSymbol}/waypoints/{waypointSymbol}/jump-gate'
@@ -1541,6 +1582,7 @@ class SpaceTraders:
             dict: The response from the server
         '''
 
+
         # Prepare the url
         url = self.url + f'/systems/{systemSymbol}/waypoints/{waypointSymbol}/market'
 
@@ -1569,6 +1611,7 @@ class SpaceTraders:
         Returns:
             dict: The response from the server
         '''
+
 
         # Prepare the url
         url = self.url + f'/systems/{systemSymbol}/waypoints/{waypointSymbol}/shipyard'

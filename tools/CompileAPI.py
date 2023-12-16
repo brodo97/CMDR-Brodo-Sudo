@@ -150,6 +150,13 @@ def write_function_docstring(description: str, params: dict) -> None:
             if param["has_default"]:
                 text += f". Default: {param['default']!r}"
 
+            # Add the limits to the function docstring
+            if param["has_limits"]:
+                if param["maximum"] is not None:
+                    text += f". Must be between {param['minimum']} and {param['maximum']}."
+                else:
+                    text += f". Must be greater than {param['minimum']}."
+
             write_line(f"            {text}")
 
     write_line(f"")
@@ -169,20 +176,15 @@ def write_function_body(name: str, url: str, action: str, params: dict) -> None:
         params (dict): The parameters of the function
     """
 
-    # Add the parameters to the function body
-    function_arguments = ["self"]
-    for param in sorted(params, key=lambda x: x["has_default"]):
-        # Add the parameter to the function body
-        text = f"{param['name']}={param['name']}"
+    # Validate the parameters
+    for param in params:
+        if param["has_limits"]:
+            if param["maximum"] is not None:
+                write_line(f"        assert {param['minimum']} <= {param['name']} <= {param['maximum']}, f'{param['name']} must be between {param['minimum']} and {param['maximum']}.'")
+            else:
+                write_line(f"        assert {param['minimum']} <= {param['name']}, f'{param['name']} must be greater than {param['minimum']}.'")
 
-        # Add the default value to the function body
-        if param["has_default"]:
-            text += f" if {param['name']} is not None else {param['default']!r}"
-
-        function_arguments.append(
-            text
-        )
-
+    write_line(f"")
     write_line(f"        # Prepare the url")
     write_line(f"        url = self.url + f{url!r}")
 
@@ -192,14 +194,14 @@ def write_function_body(name: str, url: str, action: str, params: dict) -> None:
     if any(param["in"] == "query" for param in params):
         write_line(f"")
         write_line(f"        # Prepare the parameters")
-        write_line(f"        params = dict()")
-        write_line(f"")
-        write_line(f"        # Add the parameters to the parameters dict")
+        write_line(f"        params = {{")
+
+        # Add the parameters to the params dict, it will be used in the request
         for param in sorted(params, key=lambda x: x["has_default"]):
             if param["in"] == "query":
-                write_line(f"        if {param['name']} is not None:")
-                write_line(f"            params['{param['name']}'] = {param['name']}")
+                write_line(f"            {param['name']!r}: {param['name']},")
                 add_parameters = True
+        write_line(f"        }}")
 
     # Add the parameters to the function body
     write_line(f"")
@@ -279,7 +281,11 @@ def parse_parameters(parameters: list) -> list:
             "required": parameter["required"] if "required" in parameter else False,
             "in": parameter["in"] if "in" in parameter else "query",
             "has_default": "default" in schema,
-            "default": schema["default"] if "default" in schema else None
+            "default": schema["default"] if "default" in schema else None,
+            "has_limits": "minimum" in schema,
+            "minimum": schema["minimum"] if "minimum" in schema else None,
+            "maximum": schema["maximum"] if "maximum" in schema else None
+            
         })
 
     return params
