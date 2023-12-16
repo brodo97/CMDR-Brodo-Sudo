@@ -1,3 +1,24 @@
+# Lib Author: Mattia Brunelli (https://github.com/brodo97)
+#
+# OpenAPI Author: Joel Brubaker (joel@spacetraders.io)
+# OpenAPI Source: https://raw.githubusercontent.com/SpaceTradersAPI/api-docs/main/reference/SpaceTraders.json
+#
+# Description: This script reads the OpenAPI json file and generates the SpaceTradersAPI.py file
+#              which can be used to interact with the SpaceTraders API easily and efficiently.
+#              The SpaceTradersAPI.py file is generated in the app folder.
+#
+# How to use: 1. Download the OpenAPI json file from https://raw.githubusercontent.com/SpaceTradersAPI/api-docs/main/reference/SpaceTraders.json
+#             2. Place the OpenAPI json file in the tools folder
+#             3. Run this script
+#             4. Copy the SpaceTradersAPI.py file from the app folder to the app folder in your project
+#             5. Import the SpaceTradersAPI.py file in your project
+#             6. Use the SpaceTradersAPI.py file in your project
+#
+# Note: This script is not perfect and might not work for all OpenAPI json files.
+#       If you find any bugs, please report them on the GitHub repository.
+#       If you want to add a feature, please create a pull request on the GitHub repository.
+#
+
 import requests
 
 class SpaceTraders:
@@ -18,10 +39,13 @@ class SpaceTraders:
 
     def get_status(
         self
-    ):
+    ) -> dict:
         '''
         Return the status of the game server.
         This also includes a few global elements, such as announcements, server reset dates and leaderboards.
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -41,13 +65,16 @@ class SpaceTraders:
         self,
         page: int = 1,
         limit: int = 10
-    ):
+    ) -> dict:
         '''
         Fetch agents details.
 
         Args:
             page (int): What entry offset to request. Default: 1
             limit (int): How many entries to return per page. Default: 10
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -75,12 +102,15 @@ class SpaceTraders:
     def get_agent(
         self,
         agentSymbol: str = 'FEBA66'
-    ):
+    ) -> dict:
         '''
         Fetch agent details.
 
         Args:
             agentSymbol (str): The agent symbol. Default: 'FEBA66'
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -100,13 +130,16 @@ class SpaceTraders:
         self,
         page: int = 1,
         limit: int = 10
-    ):
+    ) -> dict:
         '''
         Return a paginated list of all the factions in the game.
 
         Args:
             page (int): What entry offset to request. Default: 1
             limit (int): How many entries to return per page. Default: 10
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -134,12 +167,15 @@ class SpaceTraders:
     def get_faction(
         self,
         factionSymbol: str
-    ):
+    ) -> dict:
         '''
         View the details of a faction.
 
         Args:
             factionSymbol (str): The faction symbol
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -157,9 +193,12 @@ class SpaceTraders:
 
     def get_my_agent(
         self
-    ):
+    ) -> dict:
         '''
         Fetch your agent's details.
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -179,13 +218,16 @@ class SpaceTraders:
         self,
         page: int = 1,
         limit: int = 10
-    ):
+    ) -> dict:
         '''
         Return a paginated list of all your contracts.
 
         Args:
             page (int): What entry offset to request. Default: 1
             limit (int): How many entries to return per page. Default: 10
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -213,12 +255,15 @@ class SpaceTraders:
     def get_contract(
         self,
         contractId: str
-    ):
+    ) -> dict:
         '''
         Get the details of a contract by ID.
 
         Args:
             contractId (str): The contract ID
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -237,7 +282,7 @@ class SpaceTraders:
     def accept_contract(
         self,
         contractId: str
-    ):
+    ) -> dict:
         '''
         Accept a contract by ID. 
         
@@ -245,6 +290,9 @@ class SpaceTraders:
 
         Args:
             contractId (str): The contract ID to accept.
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -263,7 +311,7 @@ class SpaceTraders:
     def deliver_contract(
         self,
         contractId: str
-    ):
+    ) -> dict:
         '''
         Deliver cargo to a contract.
         
@@ -273,6 +321,9 @@ class SpaceTraders:
 
         Args:
             contractId (str): The ID of the contract.
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -291,12 +342,15 @@ class SpaceTraders:
     def fulfill_contract(
         self,
         contractId: str
-    ):
+    ) -> dict:
         '''
         Fulfill a contract. Can only be used on contracts that have all of their delivery terms fulfilled.
 
         Args:
             contractId (str): The ID of the contract to fulfill.
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -316,13 +370,16 @@ class SpaceTraders:
         self,
         page: int = 1,
         limit: int = 10
-    ):
+    ) -> dict:
         '''
         Return a paginated list of all of ships under your agent's ownership.
 
         Args:
             page (int): What entry offset to request. Default: 1
             limit (int): How many entries to return per page. Default: 10
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -349,11 +406,14 @@ class SpaceTraders:
 
     def purchase_ship(
         self
-    ):
+    ) -> dict:
         '''
         Purchase a ship from a Shipyard. In order to use this function, a ship under your agent's ownership must be in a waypoint that has the `Shipyard` trait, and the Shipyard must sell the type of the desired ship.
         
         Shipyards typically offer ship types, which are predefined templates of ships that have dedicated roles. A template comes with a preset of an engine, a reactor, and a frame. It may also include a few modules and mounts.
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -372,12 +432,15 @@ class SpaceTraders:
     def get_my_ship(
         self,
         shipSymbol: str
-    ):
+    ) -> dict:
         '''
         Retrieve the details of a ship under your agent's ownership.
 
         Args:
             shipSymbol (str): The symbol of the ship.
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -396,12 +459,15 @@ class SpaceTraders:
     def get_my_ship_cargo(
         self,
         shipSymbol: str
-    ):
+    ) -> dict:
         '''
         Retrieve the cargo of a ship under your agent's ownership.
 
         Args:
             shipSymbol (str): The symbol of the ship.
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -420,7 +486,7 @@ class SpaceTraders:
     def create_chart(
         self,
         shipSymbol: str
-    ):
+    ) -> dict:
         '''
         Command a ship to chart the waypoint at its current location.
         
@@ -430,6 +496,9 @@ class SpaceTraders:
 
         Args:
             shipSymbol (str): The symbol of the ship.
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -448,7 +517,7 @@ class SpaceTraders:
     def get_ship_cooldown(
         self,
         shipSymbol: str
-    ):
+    ) -> dict:
         '''
         Retrieve the details of your ship's reactor cooldown. Some actions such as activating your jump drive, scanning, or extracting resources taxes your reactor and results in a cooldown.
         
@@ -458,6 +527,9 @@ class SpaceTraders:
 
         Args:
             shipSymbol (str): The symbol of the ship.
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -476,7 +548,7 @@ class SpaceTraders:
     def dock_ship(
         self,
         shipSymbol: str
-    ):
+    ) -> dict:
         '''
         Attempt to dock your ship at its current location. Docking will only succeed if your ship is capable of docking at the time of the request.
         
@@ -486,6 +558,9 @@ class SpaceTraders:
 
         Args:
             shipSymbol (str): The symbol of the ship.
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -504,7 +579,7 @@ class SpaceTraders:
     def extract_resources(
         self,
         shipSymbol: str
-    ):
+    ) -> dict:
         '''
         Extract resources from a waypoint that can be extracted, such as asteroid fields, into your ship. Send an optional survey as the payload to target specific yields.
         
@@ -514,6 +589,9 @@ class SpaceTraders:
 
         Args:
             shipSymbol (str): The ship symbol.
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -532,7 +610,7 @@ class SpaceTraders:
     def extract_resources_with_survey(
         self,
         shipSymbol: str
-    ):
+    ) -> dict:
         '''
         Use a survey when extracting resources from a waypoint. This endpoint requires a survey as the payload, which allows your ship to extract specific yields.
         
@@ -540,6 +618,9 @@ class SpaceTraders:
 
         Args:
             shipSymbol (str): The ship symbol.
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -558,12 +639,15 @@ class SpaceTraders:
     def jettison(
         self,
         shipSymbol: str
-    ):
+    ) -> dict:
         '''
         Jettison cargo from your ship's cargo hold.
 
         Args:
             shipSymbol (str): The ship symbol.
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -582,7 +666,7 @@ class SpaceTraders:
     def jump_ship(
         self,
         shipSymbol: str
-    ):
+    ) -> dict:
         '''
         Jump your ship instantly to a target connected waypoint. The ship must be in orbit to execute a jump.
         
@@ -590,6 +674,9 @@ class SpaceTraders:
 
         Args:
             shipSymbol (str): The ship symbol.
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -608,12 +695,15 @@ class SpaceTraders:
     def get_mounts(
         self,
         shipSymbol: str
-    ):
+    ) -> dict:
         '''
         Get the mounts installed on a ship.
 
         Args:
             shipSymbol (str): The ship's symbol.
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -632,7 +722,7 @@ class SpaceTraders:
     def install_mount(
         self,
         shipSymbol: str
-    ):
+    ) -> dict:
         '''
         Install a mount on a ship.
         
@@ -642,6 +732,9 @@ class SpaceTraders:
 
         Args:
             shipSymbol (str): The ship's symbol.
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -660,7 +753,7 @@ class SpaceTraders:
     def remove_mount(
         self,
         shipSymbol: str
-    ):
+    ) -> dict:
         '''
         Remove a mount from a ship.
         
@@ -670,6 +763,9 @@ class SpaceTraders:
 
         Args:
             shipSymbol (str): The ship's symbol.
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -688,12 +784,15 @@ class SpaceTraders:
     def get_ship_nav(
         self,
         shipSymbol: str
-    ):
+    ) -> dict:
         '''
         Get the current nav status of a ship.
 
         Args:
             shipSymbol (str): The ship symbol.
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -712,7 +811,7 @@ class SpaceTraders:
     def patch_ship_nav(
         self,
         shipSymbol: str
-    ):
+    ) -> dict:
         '''
         Update the nav configuration of a ship.
         
@@ -720,6 +819,9 @@ class SpaceTraders:
 
         Args:
             shipSymbol (str): The ship symbol.
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -738,7 +840,7 @@ class SpaceTraders:
     def navigate_ship(
         self,
         shipSymbol: str
-    ):
+    ) -> dict:
         '''
         Navigate to a target destination. The ship must be in orbit to use this function. The destination waypoint must be within the same system as the ship's current location. Navigating will consume the necessary fuel from the ship's manifest based on the distance to the target waypoint.
         
@@ -748,6 +850,9 @@ class SpaceTraders:
 
         Args:
             shipSymbol (str): The ship symbol.
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -766,7 +871,7 @@ class SpaceTraders:
     def negotiateContract(
         self,
         shipSymbol: str
-    ):
+    ) -> dict:
         '''
         Negotiate a new contract with the HQ.
         
@@ -778,6 +883,9 @@ class SpaceTraders:
 
         Args:
             shipSymbol (str): The ship's symbol.
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -796,7 +904,7 @@ class SpaceTraders:
     def orbit_ship(
         self,
         shipSymbol: str
-    ):
+    ) -> dict:
         '''
         Attempt to move your ship into orbit at its current location. The request will only succeed if your ship is capable of moving into orbit at the time of the request.
         
@@ -806,6 +914,9 @@ class SpaceTraders:
 
         Args:
             shipSymbol (str): The symbol of the ship.
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -824,7 +935,7 @@ class SpaceTraders:
     def purchase_cargo(
         self,
         shipSymbol: str
-    ):
+    ) -> dict:
         '''
         Purchase cargo from a market.
         
@@ -836,6 +947,9 @@ class SpaceTraders:
 
         Args:
             shipSymbol (str): The ship's symbol.
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -854,7 +968,7 @@ class SpaceTraders:
     def ship_refine(
         self,
         shipSymbol: str
-    ):
+    ) -> dict:
         '''
         Attempt to refine the raw materials on your ship. The request will only succeed if your ship is capable of refining at the time of the request. In order to be able to refine, a ship must have goods that can be refined and have installed a `Refinery` module that can refine it.
         
@@ -862,6 +976,9 @@ class SpaceTraders:
 
         Args:
             shipSymbol (str): The symbol of the ship.
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -880,7 +997,7 @@ class SpaceTraders:
     def refuel_ship(
         self,
         shipSymbol: str
-    ):
+    ) -> dict:
         '''
         Refuel your ship by buying fuel from the local market.
         
@@ -892,6 +1009,9 @@ class SpaceTraders:
 
         Args:
             shipSymbol (str): The ship symbol.
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -910,7 +1030,7 @@ class SpaceTraders:
     def create_ship_ship_scan(
         self,
         shipSymbol: str
-    ):
+    ) -> dict:
         '''
         Scan for nearby ships, retrieving information for all ships in range.
         
@@ -920,6 +1040,9 @@ class SpaceTraders:
 
         Args:
             shipSymbol (str): The ship symbol.
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -938,7 +1061,7 @@ class SpaceTraders:
     def create_ship_system_scan(
         self,
         shipSymbol: str
-    ):
+    ) -> dict:
         '''
         Scan for nearby systems, retrieving information on the systems' distance from the ship and their waypoints. Requires a ship to have the `Sensor Array` mount installed to use.
         
@@ -946,6 +1069,9 @@ class SpaceTraders:
 
         Args:
             shipSymbol (str): The ship symbol.
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -964,7 +1090,7 @@ class SpaceTraders:
     def create_ship_waypoint_scan(
         self,
         shipSymbol: str
-    ):
+    ) -> dict:
         '''
         Scan for nearby waypoints, retrieving detailed information on each waypoint in range. Scanning uncharted waypoints will allow you to ignore their uncharted state and will list the waypoints' traits.
         
@@ -974,6 +1100,9 @@ class SpaceTraders:
 
         Args:
             shipSymbol (str): The ship symbol.
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -992,12 +1121,15 @@ class SpaceTraders:
     def sell_cargo(
         self,
         shipSymbol: str
-    ):
+    ) -> dict:
         '''
         Sell cargo in your ship to a market that trades this cargo. The ship must be docked in a waypoint that has the `Marketplace` trait in order to use this function.
 
         Args:
             shipSymbol (str): Symbol of a ship.
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -1016,7 +1148,7 @@ class SpaceTraders:
     def siphon_resources(
         self,
         shipSymbol: str
-    ):
+    ) -> dict:
         '''
         Siphon gases, such as hydrocarbon, from gas giants.
         
@@ -1024,6 +1156,9 @@ class SpaceTraders:
 
         Args:
             shipSymbol (str): The ship symbol.
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -1042,7 +1177,7 @@ class SpaceTraders:
     def create_survey(
         self,
         shipSymbol: str
-    ):
+    ) -> dict:
         '''
         Create surveys on a waypoint that can be extracted such as asteroid fields. A survey focuses on specific types of deposits from the extracted location. When ships extract using this survey, they are guaranteed to procure a high amount of one of the goods in the survey.
         
@@ -1056,6 +1191,9 @@ class SpaceTraders:
 
         Args:
             shipSymbol (str): The symbol of the ship.
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -1074,7 +1212,7 @@ class SpaceTraders:
     def transfer_cargo(
         self,
         shipSymbol: str
-    ):
+    ) -> dict:
         '''
         Transfer cargo between ships.
         
@@ -1084,6 +1222,9 @@ class SpaceTraders:
 
         Args:
             shipSymbol (str): The transferring ship's symbol.
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -1102,7 +1243,7 @@ class SpaceTraders:
     def warp_ship(
         self,
         shipSymbol: str
-    ):
+    ) -> dict:
         '''
         Warp your ship to a target destination in another system. The ship must be in orbit to use this function and must have the `Warp Drive` module installed. Warping will consume the necessary fuel from the ship's manifest.
         
@@ -1110,6 +1251,9 @@ class SpaceTraders:
 
         Args:
             shipSymbol (str): The ship symbol.
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -1127,7 +1271,7 @@ class SpaceTraders:
 
     def register(
         self
-    ):
+    ) -> dict:
         '''
         Creates a new agent and ties it to an account. 
         The agent symbol must consist of a 3-14 character string, and will be used to represent your agent. This symbol will prefix the symbol of every ship you own. Agent symbols will be cast to all uppercase characters.
@@ -1139,6 +1283,9 @@ class SpaceTraders:
         > Save your token during the alpha phase. There is no way to regenerate this token without starting a new agent. In the future you will be able to generate and manage your tokens from the SpaceTraders website.
         
         If you are new to SpaceTraders, It is recommended to register with the COSMIC faction, a faction that is well connected to the rest of the universe. After registering, you should try our interactive [quickstart guide](https://docs.spacetraders.io/quickstart/new-game) which will walk you through basic API requests in just a few minutes.
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -1158,13 +1305,16 @@ class SpaceTraders:
         self,
         page: int = 1,
         limit: int = 10
-    ):
+    ) -> dict:
         '''
         Return a paginated list of all systems.
 
         Args:
             page (int): What entry offset to request. Default: 1
             limit (int): How many entries to return per page. Default: 10
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -1192,12 +1342,15 @@ class SpaceTraders:
     def get_system(
         self,
         systemSymbol: str = 'X1-OE'
-    ):
+    ) -> dict:
         '''
         Get the details of a system.
 
         Args:
             systemSymbol (str): The system symbol. Default: 'X1-OE'
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -1220,7 +1373,7 @@ class SpaceTraders:
         traits: str,
         page: int = 1,
         limit: int = 10
-    ):
+    ) -> dict:
         '''
         Return a paginated list of all of the waypoints for a given system.
         
@@ -1232,6 +1385,9 @@ class SpaceTraders:
             traits (str): Filter waypoints by one or more traits.
             page (int): What entry offset to request. Default: 1
             limit (int): How many entries to return per page. Default: 10
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -1264,7 +1420,7 @@ class SpaceTraders:
         self,
         systemSymbol: str,
         waypointSymbol: str
-    ):
+    ) -> dict:
         '''
         View the details of a waypoint.
         
@@ -1273,6 +1429,9 @@ class SpaceTraders:
         Args:
             systemSymbol (str): The system symbol
             waypointSymbol (str): The waypoint symbol
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -1292,13 +1451,16 @@ class SpaceTraders:
         self,
         systemSymbol: str,
         waypointSymbol: str
-    ):
+    ) -> dict:
         '''
         Get construction details for a waypoint. Requires a waypoint with a property of `isUnderConstruction` to be true.
 
         Args:
             systemSymbol (str): The system symbol
             waypointSymbol (str): The waypoint symbol
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -1318,7 +1480,7 @@ class SpaceTraders:
         self,
         systemSymbol: str,
         waypointSymbol: str
-    ):
+    ) -> dict:
         '''
         Supply a construction site with the specified good. Requires a waypoint with a property of `isUnderConstruction` to be true.
         
@@ -1327,6 +1489,9 @@ class SpaceTraders:
         Args:
             systemSymbol (str): The system symbol
             waypointSymbol (str): The waypoint symbol
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -1346,7 +1511,7 @@ class SpaceTraders:
         self,
         systemSymbol: str,
         waypointSymbol: str
-    ):
+    ) -> dict:
         '''
         Get jump gate details for a waypoint. Requires a waypoint of type `JUMP_GATE` to use.
         
@@ -1355,6 +1520,9 @@ class SpaceTraders:
         Args:
             systemSymbol (str): The system symbol
             waypointSymbol (str): The waypoint symbol
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -1374,7 +1542,7 @@ class SpaceTraders:
         self,
         systemSymbol: str,
         waypointSymbol: str
-    ):
+    ) -> dict:
         '''
         Retrieve imports, exports and exchange data from a marketplace. Requires a waypoint that has the `Marketplace` trait to use.
         
@@ -1383,6 +1551,9 @@ class SpaceTraders:
         Args:
             systemSymbol (str): The system symbol
             waypointSymbol (str): The waypoint symbol
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
@@ -1402,13 +1573,16 @@ class SpaceTraders:
         self,
         systemSymbol: str,
         waypointSymbol: str
-    ):
+    ) -> dict:
         '''
         Get the shipyard for a waypoint. Requires a waypoint that has the `Shipyard` trait to use. Send a ship to the waypoint to access data on ships that are currently available for purchase and recent transactions.
 
         Args:
             systemSymbol (str): The system symbol
             waypointSymbol (str): The waypoint symbol
+
+        Returns:
+            dict: The response from the server
         '''
 
         # Prepare the url
