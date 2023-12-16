@@ -1,22 +1,7 @@
+#
 # Lib Author: Mattia Brunelli (https://github.com/brodo97)
 #
-# OpenAPI Author: Joel Brubaker (joel@spacetraders.io)
-# OpenAPI Source: https://raw.githubusercontent.com/SpaceTradersAPI/api-docs/main/reference/SpaceTraders.json
-#
-# Description: This script reads the OpenAPI json file and generates the SpaceTradersAPI.py file
-#              which can be used to interact with the SpaceTraders API easily and efficiently.
-#              The SpaceTradersAPI.py file is generated in the app folder.
-#
-# How to use: 1. Download the OpenAPI json file from https://raw.githubusercontent.com/SpaceTradersAPI/api-docs/main/reference/SpaceTraders.json
-#             2. Place the OpenAPI json file in the tools folder
-#             3. Run this script
-#             4. Copy the SpaceTradersAPI.py file from the app folder to the app folder in your project
-#             5. Import the SpaceTradersAPI.py file in your project
-#             6. Use the SpaceTradersAPI.py file in your project
-#
-# Note: This script is not perfect and might not work for all OpenAPI json files.
-#       If you find any bugs, please report them on the GitHub repository.
-#       If you want to add a feature, please create a pull request on the GitHub repository.
+# API Author: Joel Brubaker (joel@spacetraders.io)
 #
 
 import requests

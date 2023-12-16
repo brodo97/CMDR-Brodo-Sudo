@@ -1,3 +1,6 @@
-token.key
-atlas.json
-venv/
+.venv/
+__pycache__/
+
+Config.py
+tools/source.json
+Test.py
