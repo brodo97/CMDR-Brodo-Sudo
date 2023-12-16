@@ -1,12 +1,23 @@
-# Atlas 🌌
-Atlas is a hobby project that I created to learn the automation of RESTful API using the [SpaceTraders](https://spacetraders.io/) game/codebase which is
+# CMDR-Brodo-Sudo 🌌
+
+Two major passions and hobbies guide my everyday life:
+- Programming
+- Space
+
+Why not combine the two?
+
+Here is CMDR Brodo Sudo's journey inside the JSON galaxy.
+
+## What is that?
+
+This is a script to automate [SpaceTraders](https://spacetraders.io/)' requests. SpaceTraders is:
 
 > a programmable fleet-management game played through a headless API. Build your own UI, automate your trade routes, or just enjoy the game from the comfort of your terminal.
 
-![space](https://w.wallhaven.cc/full/wq/wallhaven-wq2r8p.png)
+## Special thanks
 
-## Roadmap
-- Command Line Interface (CLI) for interacting with the APIs written in Python, later with [curses](https://docs.python.org/3.10/howto/curses.html), [Textual](https://textual.textualize.io/) or [blessings](https://github.com/erikrose/blessings) 🐍
-- Implementing the same logic in a web application using [Flask](https://flask.palletsprojects.com/en/3.0.x/) ⚗️
-- Finally, rewriting the Flask code in JavaScript and packaging the application with Electron ⚛️
+To [lu-tar](https://github.com/lu-tar).
 
+This is a fork of his project: [Atlas](https://github.com/lu-tar/atlas)
+
+This will help me start faster!
