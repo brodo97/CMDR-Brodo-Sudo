@@ -1,4 +1,4 @@
-import Model
+import app.Model as Model
 
 def main():
     Model.login()
