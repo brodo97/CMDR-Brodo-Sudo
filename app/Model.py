@@ -1,97 +1,62 @@
 import app.SpaceTradersAPI as SpaceTradersAPI
 from Config import *
-import os
-from datetime import datetime
+import json
 
-API = SpaceTradersAPI.SpaceTraders(TOKEN)
+API = None
+GALAXY_DATA = None
+CONTRACTS = None
 
-clear = lambda: os.system("cls" if os.name == "nt" else "clear")
+def init() -> None:
+    """Initializes the API."""
 
+    global API
 
-def convert_date(date: str) -> str:
-    """ Converts a date from the SpaceTraders API to a more readable format
+    API = SpaceTradersAPI.SpaceTraders(TOKEN)
 
-    Args:
-        date (str): The date from the SpaceTraders API
+def login() -> dict:
+    """Logs into SpaceTraders and returns the response."""
 
-    Returns:
-        str: The converted date in: dd/mm/yyyy, hh:mm:ss
-    """
-
-    return datetime.strptime(date, "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%d/%m/%Y, %H:%M:%S")
-
-def convert_in_time_left(date: str) -> str:
-    """ How much time is left until date
-
-    Args:
-        date (str): The date from the SpaceTraders API
-
-    Returns:
-        str: The time left until date
-    """
-
-    date = datetime.strptime(date, "%Y-%m-%dT%H:%M:%S.%fZ")
-    now = datetime.utcnow()
-
-    return str(date - now)
-    
-
-def print_contracts(contracts: dict) -> None:
-    """ Prints a contracts in a nice format
-    """
-
-    print("\nContracts:")
-
-    for contract in contracts["data"]:
-        print("Faction: " + contract["factionSymbol"])
-        print("Type: " + contract["type"])
-
-        term = contract["terms"]
-        payment = term["payment"]
-        deliver = term["deliver"]
-
-        print(f"Terms:")
-
-        if contract["accepted"] is True:
-            print(f" - Deadline: {convert_date(term['deadline'])} (in {convert_in_time_left(term['deadline'])})")
-            print(f" - Payment: {payment['onFulfilled']:,} credits when completed")
-        else:
-            print(f" - Deadline to accept: {convert_date(contract['deadlineToAccept'])} (in {convert_in_time_left(contract['deadlineToAccept'])})")
-            print(f" - Payment: {payment['onAccepted']:,} credits when accepted, {payment['onFulfilled']:,} credits when completed")
-
-        print("Needs:")
-        for deliverable in deliver:
-            required = deliverable["unitsRequired"]
-            fulfilled = deliverable["unitsFulfilled"]
-            tradesymbol = deliverable["tradeSymbol"]
-            text = f" - {tradesymbol}: "
-            if contract["accepted"] is True:
-                text += f"Delivered {fulfilled}/{required} units ({100/required*fulfilled:.1f}%). {required - fulfilled} left to go ({100/required*(required-fulfilled):.1f}%)"
-            else:
-                text += f"{required} units"
-            print(text)
-
-        print()
-
-def login() -> None:
-    """ Logs into the SpaceTraders API and prints the initial data
-    """
-    
-    print("Logging in...\n")
+    global API
 
     result = API.get_my_agent()
-    result = result["data"]
 
-    clear()
+    return result["data"]
 
-    print(f"Login successful, welcome back {YOUR_NAME}!")
-    print("Here is your agent data:")
+def get_contracts() -> dict:
+    """Gets the contracts from SpaceTraders and returns the response."""
 
-    for key, value in result.items():
-        print(f" - {key.title()}: {value}")
+    global API, CONTRACTS
 
-    contracts = API.get_contracts()    
-    print_contracts(contracts)
+    # Return the cached data if it exists
+    if CONTRACTS is not None:
+        return CONTRACTS
+
+    result = API.get_contracts()
+
+    return result["data"]
+
+def get_galaxy_data() -> dict:
+    """Gets the galaxy data from SpaceTraders and returns the response."""
+
+    global GALAXY_DATA
+
+    # Return the cached data if it exists
+    if GALAXY_DATA is not None:
+        return GALAXY_DATA
+
+    with open("data/galaxy.json", "r") as f:
+        result = json.loads(f.read())
+
+    data = dict()
     
+    data.update({
+        "system_count": len(result),
+        "star_by_type": dict()
+    })
 
-    
+    for system in result:
+        data["star_by_type"].update({
+            system["type"]: data["star_by_type"].get(system["type"], 0) + 1
+        })
+
+    return data

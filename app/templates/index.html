@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Agent {{agent["symbol"]}}
+{% endblock %}
+
+
+{% block content %}
+<div class="ui grid">
+  <div class="sixteen wide column">
+    <div class="ui card fluid">
+      <div class="content">
+        <div class="header">
+          <i class="file alternate outline icon"></i>
+          Available Contracts
+        </div>
+        <div class="description">
+          <table class="ui right aligned table inverted">
+            <thead>
+              <tr>
+                <th class="left aligned">Faction</th>
+                <th>Type</th>
+                <th>Expire in</th>
+                <th>Deadline in</th>
+                <th>Actions</th>
+                <th>Upfront payment</th>
+                <th>Reward</th>
+              </tr>
+            </thead>
+            <tbody id="av_contracts">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sixteen wide column">
+    <div class="ui card fluid">
+      <div class="content">
+        <div class="header">
+          <i class="handshake outline icon"></i>
+          Accepted Contracts
+        </div>
+        <div class="description">
+          <table class="ui right aligned table inverted">
+            <thead>
+              <tr>
+                <th class="left aligned">Faction</th>
+                <th>Type</th>
+                <th>Expire in</th>
+                <th>Deadline in</th>
+                <th>Actions</th>
+                <th>Upfront payment</th>
+                <th>Reward</th>
+              </tr>
+            </thead>
+            <tbody id="ac_contracts">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="eight wide column"></div>
+    <div class="ui fluid card">
+      <div class="image">
+        <img class="ui image" src="{{url_for('static', filename='galaxy.png')}}" alt="">
+      </div>
+      <div class="content">
+        <a class="header">Galaxy details</a>
+        <div class="description" id="galaxy_description">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+{% endblock %}
