@@ -1,6 +1,3 @@
-// UI elements 
-$(".ui.dropdown").dropdown();
-
 // Function to convert a number to a string with commas
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -30,8 +27,10 @@ function fill_contract_table(contracts){
     // Cycle through actions (deliveries)
     var actions = "";
     for (var j = 0; j < contract.terms.deliver.length; j++){
-      console.log(contract.terms.deliver[j]);
-      actions += `${contract.terms.deliver[j].unitsRequired}x ${contract.terms.deliver[j].tradeSymbol} <br>`;
+      var units = contract.terms.deliver[j].unitsRequired;
+      var trade_symbol = contract.terms.deliver[j].tradeSymbol;
+      var trade_dest = contract.terms.deliver[j].destinationSymbol;
+      actions += `${units}x ${trade_symbol} on ${trade_dest}<br>`;
     }
 
     // Calculate ETAs
@@ -40,17 +39,36 @@ function fill_contract_table(contracts){
     var eta_expire = expire_at.fromNow();
     var eta_deadline = deadline.fromNow();
 
+    var table_row = "";
+
+    if (table_id === "#av_contracts"){
+      table_row = `
+        <tr>
+          <td class='left aligned'>${contract.factionSymbol}</td>
+          <td>${contract.type}</td>
+          <td>${eta_expire}</td>
+          <td>${eta_deadline}</td>
+          <td>${actions}</td>
+          <td><i class="bi bi-currency-dollar"></i>${numberWithCommas(contract.terms.payment.onAccepted)}</td>
+          <td><i class="bi bi-currency-dollar"></i>${numberWithCommas(contract.terms.payment.onFulfilled)}</td>
+          <td><button type="button" class="btn btn-success" onclick='accept_contract("${contract.id}")'>Accept</button></td>
+        </tr>
+      `;
+    }else{
+      table_row = `
+        <tr>
+          <td class='left aligned'>${contract.factionSymbol}</td>
+          <td>${contract.type}</td>
+          <td>${eta_deadline}</td>
+          <td>${actions}</td>
+          <td><i class="bi bi-currency-dollar"></i>${numberWithCommas(contract.terms.payment.onAccepted)}</td>
+        </tr>
+      `;
+    }
+
     // Append to table
     $(table_id).append(
-      "<tr>" +
-        "<td class='left aligned'>" + contract.factionSymbol + "</td>" +
-        "<td>" + contract.type + "</td>" +
-        "<td>" + eta_expire + "</td>" +
-        "<td>" + eta_deadline + "</td>" +
-        "<td>" + actions + "</td>" +
-        "<td><i class='dollar sign icon'></i>" + numberWithCommas(contract.terms.payment.onAccepted) + "</td>" +
-        "<td><i class='dollar sign icon'></i>" + numberWithCommas(contract.terms.payment.onFulfilled) + "</td>" +
-      "</tr>"
+      table_row
     )
 
   }
@@ -91,14 +109,34 @@ socket.on("connect", function() {
 
 function get_contracts(){
   socket.emit("get_contracts", (response) => {
+    console.log(response);
     fill_contract_table(response);
   });
 }
 
-window.onload = function() {
-  get_contracts();
+function accept_contract(contract_id){
+  socket.emit("accept_contract", contract_id, (response) => {
+    console.log(response);
+    get_contracts();
+  });
+}
 
-  socket.emit("get_galaxy_data", (response) => {
-    process_galaxy_data(response);
+function get_waypoints(){
+  var trait = $("#trait").val();
+  var system = $("#system").val();
+
+  // Check if parameters are empty
+  if (trait === "" || system === ""){
+    $("#search_waypoint_card").append(`
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>Warning!</strong> You must enter a trait and system.
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    `);
+    return;
+  }
+
+  socket.emit("get_waypoints", trait, system, (waypoints) => {
+    console.log(waypoints);
   });
 }

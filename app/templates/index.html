@@ -6,78 +6,81 @@ Agent {{agent["symbol"]}}
 
 
 {% block content %}
-<div class="ui grid">
-  <div class="sixteen wide column">
-    <div class="ui card fluid">
-      <div class="content">
-        <div class="header">
-          <i class="file alternate outline icon"></i>
-          Available Contracts
-        </div>
-        <div class="description">
-          <table class="ui right aligned table inverted">
-            <thead>
-              <tr>
-                <th class="left aligned">Faction</th>
-                <th>Type</th>
-                <th>Expire in</th>
-                <th>Deadline in</th>
-                <th>Actions</th>
-                <th>Upfront payment</th>
-                <th>Reward</th>
-              </tr>
-            </thead>
-            <tbody id="av_contracts">
-            </tbody>
-          </table>
-        </div>
-      </div>
+<div class="row">
+  <div class="col card">
+    <div class="card-body">
+      <h5 class="card-title"><i class="bi bi-file-earmark-medical"></i></h5>
+      <h6 class="card-subtitle mb-2 text-body-secondary">List of available contracts. Click on "Accept" to accept a contract.</h6>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Faction</th>
+            <th scope="col">Type</th>
+            <th scope="col">Expire in</th>
+            <th scope="col">Deadline in</th>
+            <th scope="col">Actions</th>
+            <th scope="col">Upfront payment</th>
+            <th scope="col">Reward</th>
+            <th scope="col">Accept</th>
+          </tr>
+        </thead>
+        <tbody id="av_contracts">
+        </tbody>
+      </table>
+
     </div>
   </div>
+</div>
 
-  <div class="sixteen wide column">
-    <div class="ui card fluid">
-      <div class="content">
-        <div class="header">
-          <i class="handshake outline icon"></i>
-          Accepted Contracts
-        </div>
-        <div class="description">
-          <table class="ui right aligned table inverted">
-            <thead>
-              <tr>
-                <th class="left aligned">Faction</th>
-                <th>Type</th>
-                <th>Expire in</th>
-                <th>Deadline in</th>
-                <th>Actions</th>
-                <th>Upfront payment</th>
-                <th>Reward</th>
-              </tr>
-            </thead>
-            <tbody id="ac_contracts">
-            </tbody>
-          </table>
-        </div>
-      </div>
+<br><br>
+
+<div class="row">
+  <div class="col card">
+    <div class="card-body">
+      <h5 class="card-title"><i class="bi bi-vector-pen"></i></h5>
+      <h6 class="card-subtitle mb-2 text-body-secondary">List of contracts that you have accepted.</h6>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Faction</th>
+              <th scope="col">Type</th>
+              <th scope="col">Deadline in</th>
+              <th scope="col">Actions</th>
+              <th scope="col">Reward</th>
+            </tr>
+          </thead>
+          <tbody id="ac_contracts">
+          </tbody>
+        </table>
+
     </div>
   </div>
+</div>
 
-  <div class="eight wide column"></div>
-    <div class="ui fluid card">
-      <div class="image">
-        <img class="ui image" src="{{url_for('static', filename='galaxy.png')}}" alt="">
-      </div>
-      <div class="content">
-        <a class="header">Galaxy details</a>
-        <div class="description" id="galaxy_description">
-        </div>
-      </div>
+<br><br>
+
+<div class="row">
+  <div class="card mb-2">
+    <div class="card-body">
+      <h5 class="card-title">Galaxy details</h5>
+      <p class="card-text" id="galaxy_description"></p>
     </div>
+    <img src="{{url_for('static', filename='galaxy.png')}}" class="card-img-top" alt="Our beautiful galaxy">
   </div>
 </div>
 {% endblock %}
 
 
 {% block scripts %}
+<script>
+  window.onload = function() {
+    get_contracts();
+  
+    socket.emit("get_galaxy_data", (response) => {
+      process_galaxy_data(response);
+    });
+  }
+</script>
 {% endblock %}
