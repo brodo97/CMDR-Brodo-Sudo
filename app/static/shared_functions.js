@@ -61,7 +61,7 @@ function fill_contract_table(contracts){
           <td>${contract.type}</td>
           <td>${eta_deadline}</td>
           <td>${actions}</td>
-          <td><i class="bi bi-currency-dollar"></i>${numberWithCommas(contract.terms.payment.onAccepted)}</td>
+          <td><i class="bi bi-currency-dollar"></i>${numberWithCommas(contract.terms.payment.onFulfilled)}</td>
         </tr>
       `;
     }
