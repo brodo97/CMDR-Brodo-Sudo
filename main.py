@@ -13,13 +13,28 @@ socketio = SocketIO(app)
 
 @app.route("/")
 def index():
-    return render_template("index.html", agent=Model.login())
+    response = Model.get_agent()
+    print(response)
+    return render_template("index.html", agent=response)
+
+@app.route("/waypoints")
+def waypoints():
+    response = Model.get_agent()
+    print(response)
+    systems = Model.get_systems()
+    return render_template("waypoints.html", agent=response, systems=systems)
 
 @socketio.on("get_contracts")
-def contracts_handler():
-    available = Model.get_contracts()
+def get_contracts_handler():
+    available_contracts = Model.get_contracts()
+    print(available_contracts)
+    return available_contracts
 
-    return available
+@socketio.on("accept_contract")
+def accept_contracts_handler(contract_id: str):
+    accepted_contract = Model.accept_contract(contract_id)
+    print(accepted_contract)
+    return accepted_contract
 
 @socketio.on("get_galaxy_data")
 def galaxy_handler():
@@ -27,6 +42,17 @@ def galaxy_handler():
 
     return galaxy
 
+@socketio.on("get_waypoints")
+def get_waypoints(trait: str, system: str):
+    waypoints = Model.get_waypoints(
+        trait=trait,
+        system=system
+    )
+
+    print(waypoints)
+
+    return waypoints
+
 if __name__ == "__main__":
     Model.init()
-    app.run()
+    app.run(host="0.0.0.0")

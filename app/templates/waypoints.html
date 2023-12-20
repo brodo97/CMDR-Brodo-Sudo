@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Agent {{agent["symbol"]}}
+{% endblock %}
+
+
+{% block content %}
+<div class="row">
+  <div class="col card">
+    <div class="card-body" id="search_waypoint_card">
+      <h5 class="card-title"><i class="bi bi-search"></i></h5>
+      <h6 class="card-subtitle mb-2 text-body-secondary">Search a waypoint in the galaxy!</h6>
+
+      <label for="trait" class="form-label">Look for</label>
+      <input class="form-control" list="trait_options" id="trait" placeholder="Type to search...">
+      <datalist id="trait_options">
+        <option value="ASH_CLOUDS">
+        <option value="BARREN">
+        <option value="BLACK_MARKET">
+        <option value="BREATHABLE_ATMOSPHERE">
+        <option value="BUREAUCRATIC">
+        <option value="CANYONS">
+        <option value="COMMON_METAL_DEPOSITS">
+        <option value="CORROSIVE_ATMOSPHERE">
+        <option value="CORRUPT">
+        <option value="CRUSHING_GRAVITY">
+        <option value="DEBRIS_CLUSTER">
+        <option value="DEEP_CRATERS">
+        <option value="DIVERSE_LIFE">
+        <option value="DRY_SEABEDS">
+        <option value="EXPLORATION_OUTPOST">
+        <option value="EXPLOSIVE_GASES">
+        <option value="EXTREME_PRESSURE">
+        <option value="EXTREME_TEMPERATURES">
+        <option value="FOSSILS">
+        <option value="FROZEN">
+        <option value="HIGH_TECH">
+        <option value="HOLLOWED_INTERIOR">
+        <option value="ICE_CRYSTALS">
+        <option value="INDUSTRIAL">
+        <option value="JOVIAN">
+        <option value="JUNGLE">
+        <option value="MAGMA_SEAS">
+        <option value="MARKETPLACE">
+        <option value="MEGA_STRUCTURES">
+        <option value="METHANE_POOLS">
+        <option value="MICRO_GRAVITY_ANOMALIES">
+        <option value="MILITARY_BASE">
+        <option value="MINERAL_DEPOSITS">
+        <option value="MUTATED_FLORA">
+        <option value="OCEAN">
+        <option value="OUTPOST">
+        <option value="OVERCROWDED">
+        <option value="PERPETUAL_DAYLIGHT">
+        <option value="PERPETUAL_OVERCAST">
+        <option value="PIRATE_BASE">
+        <option value="PRECIOUS_METAL_DEPOSITS">
+        <option value="RADIOACTIVE">
+        <option value="RARE_METAL_DEPOSITS">
+        <option value="RESEARCH_FACILITY">
+        <option value="ROCKY">
+        <option value="SALT_FLATS">
+        <option value="SCARCE_LIFE">
+        <option value="SCATTERED_SETTLEMENTS">
+        <option value="SHALLOW_CRATERS">
+        <option value="SHIPYARD">
+        <option value="SPRAWLING_CITIES">
+        <option value="STRIPPED">
+        <option value="STRONG_GRAVITY">
+        <option value="STRONG_MAGNETOSPHERE">
+        <option value="SUPERVOLCANOES">
+        <option value="SURVEILLANCE_OUTPOST">
+        <option value="SWAMP">
+        <option value="TEMPERATE">
+        <option value="TERRAFORMED">
+        <option value="THIN_ATMOSPHERE">
+        <option value="TOXIC_ATMOSPHERE">
+        <option value="TRADING_HUB">
+        <option value="UNCHARTED">
+        <option value="UNDER_CONSTRUCTION">
+        <option value="UNSTABLE_COMPOSITION">
+        <option value="VAST_RUINS">
+        <option value="VIBRANT_AURORAS">
+        <option value="VOLCANIC">
+        <option value="WEAK_GRAVITY">
+      </datalist>
+
+      <br>
+
+      <label for="system" class="form-label">In the system</label>
+      <input class="form-control" list="system_options" id="system" placeholder="Type to search...">
+      <datalist id="system_options">
+        {% for system in systems %}
+        <option value="{{system}}">
+        {% endfor %}
+      </datalist>
+
+      <br>
+
+      <button type="button" class="btn btn-primary" onclick="get_waypoints()">Search</button>
+
+      <br><br>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+{% endblock %}
